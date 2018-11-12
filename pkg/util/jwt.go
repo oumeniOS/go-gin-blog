@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/EDDYCJY/gin-blog/pkg/setting"
+	"github.com/oumeniOS/go-gin-blog/pkg/setting"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )

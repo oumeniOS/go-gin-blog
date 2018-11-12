@@ -4,12 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
-	"github.com/EDDYCJY/gin-blog/pkg/e"
-	"github.com/EDDYCJY/gin-blog/models"
+	"github.com/oumeniOS/go-gin-blog/pkg/e"
+	"github.com/oumeniOS/go-gin-blog/models"
 	"net/http"
-	"github.com/EDDYCJY/gin-blog/pkg/util"
-	"github.com/EDDYCJY/gin-blog/pkg/setting"
-	"github.com/EDDYCJY/gin-blog/pkg/logging"
+	"github.com/oumeniOS/go-gin-blog/pkg/util"
+	"github.com/oumeniOS/go-gin-blog/pkg/setting"
+	"github.com/oumeniOS/go-gin-blog/pkg/logging"
 )
 
 /*

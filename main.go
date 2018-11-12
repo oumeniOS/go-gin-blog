@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/EDDYCJY/gin-blog/pkg/setting"
+	"github.com/oumeniOS/go-gin-blog/pkg/setting"
 	"fmt"
-	"github.com/EDDYCJY/gin-blog/routers"
+	"github.com/oumeniOS/go-gin-blog/routers"
 	"github.com/fvbock/endless"
 	"log"
 	"syscall"

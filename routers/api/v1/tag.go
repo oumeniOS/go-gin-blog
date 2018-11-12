@@ -3,10 +3,10 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/Unknwon/com"
-	"github.com/EDDYCJY/gin-blog/pkg/e"
-	"github.com/EDDYCJY/gin-blog/models"
-	"github.com/EDDYCJY/gin-blog/pkg/util"
-	"github.com/EDDYCJY/gin-blog/pkg/setting"
+	"github.com/oumeniOS/go-gin-blog/pkg/e"
+	"github.com/oumeniOS/go-gin-blog/models"
+	"github.com/oumeniOS/go-gin-blog/pkg/util"
+	"github.com/oumeniOS/go-gin-blog/pkg/setting"
 	"net/http"
 	"github.com/astaxie/beego/validation"
 )

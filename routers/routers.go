@@ -2,13 +2,13 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/EDDYCJY/gin-blog/pkg/setting"
-	"github.com/EDDYCJY/gin-blog/routers/api/v1"
-	"github.com/EDDYCJY/gin-blog/routers/api"
-	"github.com/EDDYCJY/gin-blog/middleware/jwt"
+	"github.com/oumeniOS/go-gin-blog/pkg/setting"
+	"github.com/oumeniOS/go-gin-blog/routers/api/v1"
+	"github.com/oumeniOS/go-gin-blog/routers/api"
+	"github.com/oumeniOS/go-gin-blog/middleware/jwt"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	 _"github.com/EDDYCJY/gin-blog/docs"
+	 _"github.com/oumeniOS/go-gin-blog/docs"
 )
 
 func InitRouters() *gin.Engine {

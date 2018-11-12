@@ -3,11 +3,11 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/astaxie/beego/validation"
-	"github.com/EDDYCJY/gin-blog/pkg/e"
-	"github.com/EDDYCJY/gin-blog/models"
-	"github.com/EDDYCJY/gin-blog/pkg/util"
+	"github.com/oumeniOS/go-gin-blog/pkg/e"
+	"github.com/oumeniOS/go-gin-blog/models"
+	"github.com/oumeniOS/go-gin-blog/pkg/util"
 	"net/http"
-	"github.com/EDDYCJY/gin-blog/pkg/logging"
+	"github.com/oumeniOS/go-gin-blog/pkg/logging"
 )
 
 type auth struct {

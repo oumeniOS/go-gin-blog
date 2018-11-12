@@ -3,7 +3,7 @@ package util
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/Unknwon/com"
-	"github.com/EDDYCJY/gin-blog/pkg/setting"
+	"github.com/oumeniOS/go-gin-blog/pkg/setting"
 )
 
 func GetPage(c *gin.Context) int {

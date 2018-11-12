@@ -1,48 +1,8 @@
 {
 	"ImportPath": "github.com/oumeniOS/go-gin-blog",
-	"GoVersion": "go1.10",
+	"GoVersion": "go1.11",
 	"GodepVersion": "v80",
 	"Deps": [
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/docs",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/middleware/jwt",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/models",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/pkg/e",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/pkg/logging",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/pkg/setting",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/pkg/util",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/routers",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/routers/api",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
-		{
-			"ImportPath": "github.com/EDDYCJY/gin-blog/routers/api/v1",
-			"Rev": "11da53062a7775626d85c75c432d2fccead676ca"
-		},
 		{
 			"ImportPath": "github.com/PuerkitoBio/purell",
 			"Comment": "v1.1.0-10-g975f537",
