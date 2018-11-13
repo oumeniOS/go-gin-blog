@@ -139,7 +139,9 @@
 参考链接：[https://blog.csdn.net/qq_19484963/article/details/80431703](https://blog.csdn.net/qq_19484963/article/details/80431703)
 
 外部访问docker中的服务
-docker-machine 192.168.99.100 go-gin-blog  
+
+	docker-machine 192.168.99.100 go-gin-blog  
+	
 * 192.168.99.100 外部访问的ip
 * go-gin-blog 容器名字
 * docker-machine 命令
