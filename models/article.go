@@ -1,10 +1,5 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-	"time"
-)
-
 type Article struct {
 	Model
 
@@ -27,7 +22,7 @@ type Article struct {
 删除指定文章：DELETE("/articles/:id")
 */
 
-func BeforeCreate(scope gorm.Scope) error {
+/*func BeforeCreate(scope gorm.Scope) error {
 	scope.SetColumn("CreatedOn",time.Now().Unix())
 	return nil
 }
@@ -36,7 +31,7 @@ func BeforeUpdate(scope gorm.Scope) error {
 	scope.SetColumn("ModifiedOn",time.Now().Unix())
 	return nil
 }
-
+*/
 //文章是否存在
 func IsArticleExistById(id int) bool {
 	var article Article
