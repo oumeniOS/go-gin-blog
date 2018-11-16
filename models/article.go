@@ -12,6 +12,7 @@ type Article struct {
 	CreatedBy  string `json:"created_by"`
 	ModifiedBy string `json:"modified_by"`
 	State      int    `json:"state"`
+	//DeletedAt  string    `json:"deleted_at"`
 }
 
 /*
@@ -35,7 +36,7 @@ func BeforeUpdate(scope gorm.Scope) error {
 //文章是否存在
 func IsArticleExistById(id int) bool {
 	var article Article
-	db.Select("id").Where("id=?",id).First(&article)
+	db.Where("id = ?", id).First(&article)
 	if article.ID > 0 {
 		return true
 	}
@@ -43,7 +44,7 @@ func IsArticleExistById(id int) bool {
 	return false
 }
 
-func GetArticleTotal(maps interface{})(count int)  {
+func GetArticleTotal(maps interface{}) (count int) {
 	db.Model(&Article{}).Where(maps).Count(&count)
 	return
 }
@@ -57,79 +58,37 @@ func ArticleList(pageNum int, pageSize int, maps map[string]interface{}) (articl
 //获取指定文章
 func GetArticle(id int) (article Article) {
 	//db.Preload("Tag").Where("id=?",id).First(&article)
-	db.Where("id=?",id).First(&article)
-	db.Model(&article).Related(&article.Tag)
+	//db.Where("id=?",id).First(&article)
+	//db.Model(&article).Related(&article.Tag)
+
+	db.Preload("Tag").Unscoped().Where("id=6").First(&article)
 	return
 }
 
 //更新指定文章
 func EditArticle(id int, maps map[string]interface{}) bool {
-	db.Model(&Article{}).Where("id=?",id).Updates(maps)
+	var artical Article
+	db.Where("id=?",id).First(&artical)
+	db.Model(&artical).Update(maps)
+	//db.Model(&Article{}).Where("id=?", id).Updates(maps)
 	return true
 }
 
-//删除指定文章
+//删除指定文章  软删除
 func DeleteArticle(id int) bool {
-	db.Delete(&Article{},"id=?",id)
+	db.Where("id=?", id).Delete(&Article{})
 	return true
 }
 
 //新建文章
 func NewArticle(maps map[string]interface{}) bool {
 	db.Create(&Article{
-		TagID:maps["tag_id"].(int),
-		Title:maps["title"].(string),
-		Desc:maps["desc"].(string),
-		Content:maps["content"].(string),
-		CreatedBy:maps["created_by"].(string),
-		State:maps["state"].(int),
+		TagID:     maps["tag_id"].(int),
+		Title:     maps["title"].(string),
+		Desc:      maps["desc"].(string),
+		Content:   maps["content"].(string),
+		CreatedBy: maps["created_by"].(string),
+		State:     maps["state"].(int),
 	})
 	return true
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

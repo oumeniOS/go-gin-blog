@@ -6,14 +6,11 @@ import (
 	"github.com/oumeniOS/go-gin-blog/pkg/setting"
 	"fmt"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"time"
-)
+	)
 
 type Model struct {
 	ID         int `gorm:"primary_key" json:"id"`
-	CreatedOn  int `json:"created_on"`
-	ModifiedOn int `json:"modified_on"`
-	DeleteOn   int `json:"delete_on"`
+	gorm.Model
 }
 
 var db *gorm.DB
@@ -54,9 +51,8 @@ func init() {
 	//设置最大链接数
 	db.DB().SetMaxOpenConns(100)
 
-	db.Callback().Create().Replace("gorm:after_create", UpdateTimeStampForCreateCallback)
-	db.Callback().Create().Replace("gorm:update_time_stamp", UpdateTimeStampForUpdateCallback)
-	db.Callback().Create().Register("gorm:delete",UpdateTimeStampForDeleteCallback)
+	//db.Callback().Create().Replace("gorm:after_create", UpdateTimeStampForCreateCallback)
+	//db.Callback().Update().Replace("gorm:update_time_stamp", UpdateTimeStampForUpdateCallback)
 }
 
 //关闭数据库
@@ -64,74 +60,31 @@ func CloseDB() {
 	defer db.Close()
 }
 
-func UpdateTimeStampForCreateCallback(scope *gorm.Scope) {
-	if !scope.HasError() {
-		nowTime := time.Now().Unix()
-		//set CreateOn
-		if createTimeField, ok := scope.FieldByName("CreateOn"); ok == true {
-			if createTimeField.IsBlank {
-				createTimeField.Set(nowTime)
-			}
-		}
-
-		//set ModifiedOn
-		if modifiedTimeField, ok := scope.FieldByName("ModifiedOn"); ok == true {
-			if modifiedTimeField.IsBlank {
-				modifiedTimeField.Set(nowTime)
-			}
-		}
-	}
-}
-
-func UpdateTimeStampForUpdateCallback(scope *gorm.Scope) {
-	nowTime := time.Now().Unix()
-	if _, ok := scope.Get("gorm:update_column"); !ok {
-		scope.SetColumn("ModifiedOn", nowTime)
-	}
-}
-
-func UpdateTimeStampForDeleteCallback(scope *gorm.Scope)  {
-	nowTime := time.Now().Unix()
-	if !scope.HasError() {
-		var extraOption string
-		if str, ok := scope.Get("gorm:delete_on"); ok {
-			extraOption = fmt.Sprint(str)
-			println("extraOption = ",extraOption)
-		}
-
-		deletedOnField, hasDeletedOnField := scope.FieldByName("DeletedOn")
-
-		if !scope.Search.Unscoped && hasDeletedOnField {
-			sqlStr := fmt.Sprintf(
-				"UPDATE %v SET %v=%v%v%v",
-				scope.QuotedTableName(),
-				scope.Quote(deletedOnField.DBName),
-				scope.AddToVars(nowTime),
-				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-				addExtraSpaceIfExist(extraOption),
-				)
-			println("sqlStr = ",sqlStr)
-			scope.Raw(sqlStr).Exec()
-		} else {
-			sqlStr1 := fmt.Sprintf(
-				"DELETE FROM %v%v%v",
-				scope.QuotedTableName(),
-				addExtraSpaceIfExist(scope.CombinedConditionSql()),
-				addExtraSpaceIfExist(extraOption),
-				)
-			println("sqlStr1 = ", sqlStr1)
-			scope.Raw(sqlStr1).Exec()
-		}
-	}
-}
-
-func addExtraSpaceIfExist(str string) string  {
-	if str != ""{
-		return " "+ str
-	}
-	return ""
-}
-
+//func UpdateTimeStampForCreateCallback(scope *gorm.Scope) {
+//	if !scope.HasError() {
+//		nowTime := time.Now().Unix()
+//		//set CreateOn
+//		if createTimeField, ok := scope.FieldByName("CreateOn"); ok == true {
+//			if createTimeField.IsBlank {
+//				createTimeField.Set(nowTime)
+//			}
+//		}
+//
+//		//set ModifiedOn
+//		if modifiedTimeField, ok := scope.FieldByName("ModifiedOn"); ok == true {
+//			if modifiedTimeField.IsBlank {
+//				modifiedTimeField.Set(nowTime)
+//			}
+//		}
+//	}
+//}
+//
+//func UpdateTimeStampForUpdateCallback(scope *gorm.Scope) {
+//	nowTime := time.Now().Unix()
+//	if _, ok := scope.Get("gorm:update_column"); !ok {
+//		scope.SetColumn("ModifiedOn", nowTime)
+//	}
+//}
 
 
 
