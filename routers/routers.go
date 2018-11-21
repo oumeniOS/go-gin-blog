@@ -15,12 +15,13 @@ func InitRouters() *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
-	gin.SetMode(setting.RunMode)
+	gin.SetMode(setting.ServerSetting.RunMode)
 	//注册路由
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.GET("/auth", api.GetAuth)
 	router.POST("/auth", api.AddUser)
+	router.POST("/upload", api.UploadImage)
 	apiv1 := router.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{

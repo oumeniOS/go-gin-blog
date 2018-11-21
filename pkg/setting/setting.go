@@ -6,53 +6,82 @@ import (
 	"time"
 )
 
-var (
-	Cfg          *ini.File     //初始化文件句柄
-	RunMode      string        //release 还是debug
-	HTTPPort     int           //端口号
-	ReadTimeOut  time.Duration //读超时
-	WriteTimeOut time.Duration //写超时
+type App struct {
+	JwtSecret       string
+	PageSize        int
+	RuntimeRootPath string
 
-	PageSize  int    //页面大小
-	JwtSecret string //加密码
-)
+	ImagePrefixUrl string
+	ImageSavePath  string
+	ImageMaxSize   int
+	ImageAllowExts []string
 
-func init() {
-	var err error
-	Cfg, err = ini.Load("conf/app.ini")
+	LogSavePath string
+	LogSaveName string
+	LogFileExt  string
+	TimeFormat  string
+}
+
+var AppSetting = &App{}
+
+type Server struct {
+	RunMode      string
+	HttpPort     int
+	ReadTimeout  time.Duration
+	WriteTimeout time.Duration
+}
+
+var ServerSetting = &Server{}
+
+type DataBase struct {
+	Type        string
+	User        string
+	Password    string
+	Host        string
+	Name        string
+	TablePrefix string
+}
+
+var DatabaseSetting = &DataBase{}
+
+type Redis struct {
+	Host string
+	Port string
+	Password string
+	MaxIdle int
+	MaxActive int
+	IdleTimeout time.Duration
+}
+
+var RedisSetting  = &Redis{}
+
+func Setup() {
+	Cfg, err := ini.Load("conf/app.ini")
 	if err != nil {
 		log.Fatalf("Fail to parse 'conf/app.ini':%v", err)
 	}
-	LoadBase()
-	LoadServer()
-	LoadApp()
-}
 
-//基础设置
-func LoadBase() {
-	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
-}
-
-//服务器设置
-func LoadServer() {
-	//获取服务器设置段
-	sec, err := Cfg.GetSection("server")
+	err = Cfg.Section("app").MapTo(AppSetting)
 	if err != nil {
-		log.Fatalf("Fail to get section 'server' %v", err)
+		log.Fatalf("Cfg.MapTo AppSetting error: %v", err)
 	}
-	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
-	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
-	ReadTimeOut = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
-	WriteTimeOut = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
-}
+	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024
 
-//APP设置
-func LoadApp() {
-	//获取APP设置段
-	sec, err := Cfg.GetSection("app")
+	err = Cfg.Section("server").MapTo(ServerSetting)
 	if err != nil {
-		log.Fatalf("Fail to get section 'app' %v", err)
+		log.Fatalf("Cfg.MapTo ServerSetting error :%v", err)
 	}
-	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
-	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!")
+	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
+	ServerSetting.WriteTimeout = ServerSetting.ReadTimeout * time.Second
+
+	err = Cfg.Section("database").MapTo(DatabaseSetting)
+	if err != nil {
+		log.Fatalf("Cfg.Mapto DatabaseSetting error :%v", err)
+	}
+
+	err = Cfg.Section("redis").MapTo(RedisSetting)
+	if err != nil{
+		log.Fatalf("Cfg.Mapto RedisSetting err: %v",err)
+	}
+	RedisSetting.IdleTimeout = RedisSetting.IdleTimeout * time.Second
 }

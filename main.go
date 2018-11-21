@@ -7,14 +7,18 @@ import (
 	"github.com/fvbock/endless"
 	"log"
 	"syscall"
+	"github.com/oumeniOS/go-gin-blog/models"
 )
 
 func main() {
 
-	endless.DefaultReadTimeOut = setting.ReadTimeOut
-	endless.DefaultWriteTimeOut = setting.WriteTimeOut
+	setting.Setup()
+	models.Setup()
+
+	endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
+	endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout
 	endless.DefaultMaxHeaderBytes = 1 << 20
-	endPoint := fmt.Sprintf(":%d", setting.HTTPPort)
+	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
 
 	server := endless.NewServer(endPoint, routers.InitRouters())
 	server.BeforeBegin = func(add string) {
@@ -25,15 +29,4 @@ func main() {
 	if err != nil {
 		log.Printf("Server err :%v", err)
 	}
-
-	//router := routers.InitRouters()
-	//
-	//server := &http.Server{
-	//	Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
-	//	Handler:        router,
-	//	ReadTimeout:    setting.ReadTimeOut,
-	//	WriteTimeout:   setting.WriteTimeOut,
-	//	MaxHeaderBytes: 1 << 20,
-	//}
-	//server.ListenAndServe()
 }

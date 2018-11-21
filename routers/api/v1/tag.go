@@ -27,8 +27,8 @@ func GetTags(context *gin.Context) {
 	}
 
 	code := e.SUCCESS
-	data["list"] = models.GetTags(util.GetPage(context), setting.PageSize, maps)
-	data["total"] = models.GetTagTotal(maps)
+	data["list"], _ = models.GetTags(util.GetPage(context), setting.AppSetting.PageSize, maps)
+	data["total"],_ = models.GetTagTotal(maps)
 
 	context.JSON(http.StatusOK, gin.H{
 		"code": code,
@@ -46,7 +46,7 @@ func GetTags(context *gin.Context) {
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
 // @Router /api/v1/tags [post]
 func AddTag(context *gin.Context) {
-	name := context.Query("name")
+	name := context.PostForm("name")
 	state := com.StrTo(context.DefaultQuery("state", "0")).MustInt()
 	createdBy := context.Query("createdBy")
 	valid := validation.Validation{}
@@ -60,8 +60,8 @@ func AddTag(context *gin.Context) {
 	if !valid.HasErrors() {
 		if !models.ExistTagByName(name) {
 			code = e.SUCCESS
-			success := models.AddTag(name, state, createdBy)
-			if !success {
+			err := models.AddTag(name, state, createdBy)
+			if err != nil {
 				println("models.AddTag err")
 			}
 		} else {
@@ -104,7 +104,7 @@ func EditTag(context *gin.Context) {
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
 		code = e.SUCCESS
-		if models.ExistTagById(id) {
+		if exist,_ := models.ExistTagById(id); exist {
 			data := make(map[string]interface{})
 			data["modified_by"] = modifiedBy
 			if name != "" {
@@ -142,7 +142,7 @@ func DeleteTag(context *gin.Context) {
 
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
-		if models.DeleteTagById(id) {
+		if err := models.DeleteTagById(id); err == nil {
 			code = e.SUCCESS
 		} else {
 			code = e.ERROR
