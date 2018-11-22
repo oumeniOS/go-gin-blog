@@ -146,6 +146,11 @@
 			"Rev": "951a149f90371fb8858c6c979d03bb2583611052"
 		},
 		{
+			"ImportPath": "github.com/gomodule/redigo/redis",
+			"Comment": "v2.0.0-7-ge8fc069",
+			"Rev": "e8fc0692a7e26a05b06517348ed466349062eb47"
+		},
+		{
 			"ImportPath": "github.com/jessevdk/go-assets",
 			"Rev": "ee75ed959a01cd08369b821b9d527ec1fea18b67"
 		},
@@ -200,6 +205,10 @@
 			"Rev": "94122c33edd36123c84d5368cfb2b69df93a0ec8"
 		},
 		{
+			"ImportPath": "github.com/mohae/deepcopy",
+			"Rev": "c48cc78d482608239f6c4c92a4abd87eb8761c90"
+		},
+		{
 			"ImportPath": "github.com/pkg/errors",
 			"Comment": "v0.8.0-17-g059132a",
 			"Rev": "059132a15dd08d6704c67711dae0cf35ab991756"
@@ -208,6 +217,11 @@
 			"ImportPath": "github.com/pmezard/go-difflib/difflib",
 			"Comment": "v1.0.0",
 			"Rev": "792786c7400a136282c1664665ae0a8db921c6c2"
+		},
+		{
+			"ImportPath": "github.com/robfig/cron",
+			"Comment": "v1.1",
+			"Rev": "b41be1df696709bb6395fe435af20370037c0b4c"
 		},
 		{
 			"ImportPath": "github.com/swaggo/gin-swagger",
@@ -225,6 +239,11 @@
 			"Rev": "8f09470d62b28780fa31f58f70c17f699532f2b2"
 		},
 		{
+			"ImportPath": "github.com/tealeg/xlsx",
+			"Comment": "v1.0.3-80-gdbf71b6",
+			"Rev": "dbf71b6a931e7096340690e009e40c914eb1fc3a"
+		},
+		{
 			"ImportPath": "github.com/thinkerou/favicon",
 			"Comment": "v0.1.0",
 			"Rev": "94a442a49da6e2d44bdd5e0d2e2e185c43a19d93"
@@ -233,6 +252,11 @@
 			"ImportPath": "github.com/ugorji/go/codec",
 			"Comment": "v1.1.1-38-ge5e69e0",
 			"Rev": "e5e69e061d4f7ee3a69b793cf9c1b41afe21918e"
+		},
+		{
+			"ImportPath": "github.com/xuri/excelize",
+			"Comment": "v1.4.0-20-g507fc53",
+			"Rev": "507fc5307d17194203046321534244a8fe6215ed"
 		},
 		{
 			"ImportPath": "golang.org/x/crypto/acme",
