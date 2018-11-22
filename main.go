@@ -8,13 +8,14 @@ import (
 	"log"
 	"syscall"
 	"github.com/oumeniOS/go-gin-blog/models"
+		"github.com/oumeniOS/go-gin-blog/pkg/gredis"
 )
 
 func main() {
 
 	setting.Setup()
 	models.Setup()
-
+	gredis.Setup()
 	endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
 	endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout
 	endless.DefaultMaxHeaderBytes = 1 << 20

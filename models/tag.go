@@ -28,13 +28,13 @@ func EditTag(id int, maps map[string]interface{}) error {
 }
 
 //是否已存在标签
-func ExistTagByName(name string) bool  {
+func ExistTagByName(name string) (bool, error)  {
 	var tag Tag
 	db.Select("id").Where("name=?",name).First(&tag)
 	if tag.ID > 0{
-		return true
+		return true ,nil
 	}
-	return false
+	return false ,nil
 }
 
 //是否已存在标签
